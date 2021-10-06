@@ -69,43 +69,6 @@ const PENDING = "PENDING";
 const RESOLVED = "RESOLVED";
 const REJECTED = "REJECTED";
 
-const isThenable = value => {
-    if (
-        (typeof value === "object" && value != null) ||
-        typeof value === "function"
-    ) {
-        if (typeof value.then === "function") {
-            return true;
-        }
-    }
-    return false;
-};
-
-// const getFinalValue = obj => {
-//     if (!isThenable(obj)) return obj;
-
-//     obj.then(res => {
-//         return getFinalValue(res);
-//     });
-// };
-
-// console.log(getFinalValue(444))
-// let p1=new Promise((resolve,reject)=>{
-//     resolve(555)
-// })
-// console.log('return value:'+getFinalValue(p1))// 这里是因为韩式是异步函数吧
-
-// 直接调用下面的 resolvePromise 就行，不用再写一个函数
-// const resolveFinalValue = (obj, resolve) => {
-//     if (!isThenable(obj)) {
-//         resolve(obj);
-//     } else {
-//         obj.then(res => {
-//             resolveFinalValue(res, resolve);
-//         });
-//     }
-// };
-
 const resolvePromise = (promise2, x, resolve, reject) => {
     if (promise2 === x) {
         return reject(new TypeError("chaning cycle detected for promise"));
